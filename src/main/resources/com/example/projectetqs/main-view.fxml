@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="308.0" prefWidth="504.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.projectetqs.MainController">
+   <children>
+      <Label layoutX="116.0" layoutY="32.0" text="Health Card" />
+      <Label layoutX="137.0" layoutY="76.0" text="Name" />
+      <Label layoutX="126.0" layoutY="118.0" text="Surname" />
+      <Label layoutX="114.0" layoutY="186.0" text="Date of Birth" />
+      <Label layoutX="116.0" layoutY="223.0" text="Date of Visit" />
+      <Label layoutX="132.0" layoutY="154.0" text="Gender" />
+      <TextField fx:id="textHealthCard" layoutX="210.0" layoutY="28.0" />
+      <TextField fx:id="textName" layoutX="210.0" layoutY="72.0" />
+      <TextField fx:id="textSurname" layoutX="210.0" layoutY="114.0" />
+      <RadioButton fx:id="femaleButton" layoutX="289.0" layoutY="153.0" mnemonicParsing="false" text="female">
+         <toggleGroup>
+            <ToggleGroup fx:id="gender" />
+         </toggleGroup>
+      </RadioButton>
+      <RadioButton fx:id="maleButton" layoutX="217.0" layoutY="153.0" mnemonicParsing="false" text="male" toggleGroup="$gender" />
+      <DatePicker fx:id="textDateVisit" layoutX="215.0" layoutY="219.0" prefHeight="24.0" prefWidth="171.0" />
+      <DatePicker fx:id="textDateBirth" layoutX="215.0" layoutY="182.0" prefHeight="24.0" prefWidth="171.0" />
+      <Button fx:id="sendButton" layoutX="217.0" layoutY="254.0" mnemonicParsing="false" onAction="#addVisit" text="Send Visit" />
+   </children>
+</AnchorPane>
