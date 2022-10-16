@@ -6,4 +6,4 @@
     - Github user: joaquimcodina
 * Bernat Garcia (1567067)
     - E-mail: bernat.garciam@autonoma.cat
-    - Github user: BernatGarciaa
+    - Github user: BernatGarciaaa
