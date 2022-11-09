@@ -2,26 +2,57 @@
 
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="308.0" prefWidth="504.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.projectetqs.MainController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="368.0" prefWidth="585.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.projectetqs.MainController">
    <children>
-      <Label layoutX="116.0" layoutY="32.0" text="Health Card" />
-      <Label layoutX="137.0" layoutY="76.0" text="Name" />
-      <Label layoutX="126.0" layoutY="118.0" text="Surname" />
-      <Label layoutX="114.0" layoutY="186.0" text="Date of Birth" />
-      <Label layoutX="116.0" layoutY="223.0" text="Date of Visit" />
-      <Label layoutX="132.0" layoutY="154.0" text="Gender" />
+      <Label layoutX="116.0" layoutY="32.0" text="Health Card">
+         <font>
+            <Font name="System Bold" size="13.0" />
+         </font></Label>
+      <Label layoutX="160.0" layoutY="76.0" text="Name">
+         <font>
+            <Font name="System Bold" size="13.0" />
+         </font></Label>
+      <Label layoutX="102.0" layoutY="118.0" text="First Surname">
+         <font>
+            <Font name="System Bold" size="13.0" />
+         </font></Label>
+      <Label layoutX="82.0" layoutY="151.0" prefHeight="24.0" prefWidth="127.0" text="Second Surname">
+         <font>
+            <Font name="System Bold" size="13.0" />
+         </font></Label>
+      <Label layoutX="115.0" layoutY="224.0" text="Date of Birth">
+         <font>
+            <Font name="System Bold" size="13.0" />
+         </font></Label>
+      <Label layoutX="82.0" layoutY="268.0" text="DateTime of Visit">
+         <font>
+            <Font name="System Bold" size="13.0" />
+         </font></Label>
+      <Label layoutX="133.0" layoutY="192.0" text="Gender">
+         <font>
+            <Font name="System Bold" size="13.0" />
+         </font></Label>
+      <Label layoutX="468.0" layoutY="268.0" text=":">
+         <font>
+            <Font name="System Bold" size="13.0" />
+         </font>
+      </Label>
       <TextField fx:id="textHealthCard" layoutX="210.0" layoutY="28.0" />
       <TextField fx:id="textName" layoutX="210.0" layoutY="72.0" />
-      <TextField fx:id="textSurname" layoutX="210.0" layoutY="114.0" />
-      <RadioButton fx:id="femaleButton" layoutX="289.0" layoutY="153.0" mnemonicParsing="false" text="female">
+      <TextField fx:id="textFirstSurname" layoutX="210.0" layoutY="114.0" />
+      <TextField fx:id="textSecondSurname" layoutX="209.0" layoutY="151.0" />
+      <Spinner fx:id="hours" layoutX="392.0" layoutY="264.0" prefHeight="24.0" prefWidth="69.0" />
+      <Spinner fx:id="minutes" layoutX="480.0" layoutY="264.0" prefHeight="24.0" prefWidth="69.0" />
+      <RadioButton fx:id="femaleButton" layoutX="287.0" layoutY="191.0" mnemonicParsing="false" text="female">
          <toggleGroup>
             <ToggleGroup fx:id="gender" />
          </toggleGroup>
       </RadioButton>
-      <RadioButton fx:id="maleButton" layoutX="217.0" layoutY="153.0" mnemonicParsing="false" text="male" toggleGroup="$gender" />
-      <DatePicker fx:id="textDateVisit" layoutX="215.0" layoutY="219.0" prefHeight="24.0" prefWidth="171.0" />
-      <DatePicker fx:id="textDateBirth" layoutX="215.0" layoutY="182.0" prefHeight="24.0" prefWidth="171.0" />
-      <Button fx:id="sendButton" layoutX="217.0" layoutY="254.0" mnemonicParsing="false" onAction="#addVisit" text="Send Visit" />
+      <RadioButton fx:id="maleButton" layoutX="215.0" layoutY="191.0" mnemonicParsing="false" selected="true" text="male" toggleGroup="$gender" />
+      <DatePicker fx:id="textDateVisit" editable="false" layoutX="215.0" layoutY="264.0" prefHeight="24.0" prefWidth="171.0" />
+      <DatePicker fx:id="textDateBirth" editable="false" layoutX="215.0" layoutY="220.0" prefHeight="24.0" prefWidth="171.0" />
+      <Button fx:id="sendButton" layoutX="211.0" layoutY="310.0" mnemonicParsing="false" onAction="#addVisit" text="Send Visit" />
    </children>
 </AnchorPane>
