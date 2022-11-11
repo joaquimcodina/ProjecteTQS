@@ -124,8 +124,6 @@ public class MainController implements Initializable {
     femaleButton.isSelected();
     textDateBirth.getEditor().clear();
     textDateVisit.getEditor().clear();
-    maleButton.setSelected(false);
-    femaleButton.setSelected(false);
     valueFactorySpinner();
     setCellTable();
     loadData(); //Llegir dades de JSON, i afegir-les a la taulas
