@@ -7,4 +7,8 @@ module com.example.projectetqs {
 
   opens com.example.projectetqs to javafx.fxml;
   exports com.example.projectetqs;
+  exports com.example.projectetqs.controller;
+  opens com.example.projectetqs.controller to javafx.fxml;
+  exports com.example.projectetqs.model;
+  opens com.example.projectetqs.model to javafx.fxml;
 }

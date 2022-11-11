@@ -1,19 +1,16 @@
-package com.example.projectetqs;
+package com.example.projectetqs.controller;
+import com.example.projectetqs.model.Visit;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
-import java.io.*;
 import java.net.URL;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ResourceBundle;
-
 import javafx.scene.control.cell.PropertyValueFactory;
-import org.json.*;
-import com.fasterxml.jackson.databind.ObjectMapper;
 
 public class MainController implements Initializable {
   @FXML
@@ -54,6 +51,7 @@ public class MainController implements Initializable {
   public TableColumn<?, ?> columnDateVisit;
 
   private ObservableList<Visit> data;
+  private Visit visit; //model
 
   public void valueFactorySpinner(){
     hours.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(0, 23, 0));
@@ -102,7 +100,6 @@ public class MainController implements Initializable {
 
   @FXML
   public void addVisit() {
-    String dateBirthFormatter = getDateBirth().format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
     String dateTime=(getDateVisit()+" "+getHour()+":"+getMinutes()).formatted(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
     if((getHour()>=0 && getHour()<=9) && (getMinutes()>=0 && getMinutes()<=9))
       dateTime = (getDateVisit()+" "+"0"+getHour()+":"+"0"+getMinutes()).formatted(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
@@ -114,39 +111,11 @@ public class MainController implements Initializable {
         dateTime = (getDateVisit()+" "+getHour()+":"+"0"+getMinutes()).formatted(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
     }
 
-    try{
-      String resourceName = "data/visits.json";
-      File file = new File(resourceName);
-      JSONArray jsonArray = new JSONArray();
-      JSONObject obj;
-      ObjectMapper mapper = new ObjectMapper();
-      if(file.exists()){
-        InputStream is = new FileInputStream(file);
-        if(is.available() > 0){
-          JSONTokener tokener = new JSONTokener(is);
-          obj = new JSONObject(tokener);
-          jsonArray = obj.getJSONArray("visits");
-        }
-      }
-      FileWriter fileVisits = new FileWriter(file, false);
-      obj = new JSONObject();
-      obj.put("health_card", getHealthCard());
-      obj.put("name", getName());
-      obj.put("first_surname", getFirstSurname());
-      obj.put("second_surname", getSecondSurname());
-      obj.put("gender", getGender());
-      obj.put("date_birth", dateBirthFormatter+" 00:00");
-      obj.put("date_time_visit", dateTime);
-      jsonArray.put(obj);
-      obj = new JSONObject();
-      obj.put("visits", jsonArray);
-      fileVisits.write(mapper.writerWithDefaultPrettyPrinter().writeValueAsString(mapper.readTree(obj.toString())));
-      fileVisits.flush();
-      fileVisits.close();
+    visit = new Visit(getHealthCard(), getName(), getFirstSurname(), getSecondSurname(), getGender(),
+        getDateBirth().atStartOfDay(),
+        LocalDateTime.parse(dateTime, DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")));
+    visit.saveVisitToJSON();
 
-    } catch (IOException e){
-      e.printStackTrace();
-    }
     textHealthCard.clear();
     textName.clear();
     textFirstSurname.clear();
@@ -159,14 +128,14 @@ public class MainController implements Initializable {
     femaleButton.setSelected(false);
     valueFactorySpinner();
     setCellTable();
-    loadDataFromJSON(); //actualitzar la llista de visites
+    loadData(); //Llegir dades de JSON, i afegir-les a la taulas
   }
   @Override
   public void initialize(URL arg0, ResourceBundle arg1){
     valueFactorySpinner();
     data = FXCollections.observableArrayList();
     setCellTable();
-    loadDataFromJSON(); //llegir dades de JSON, i afegir-les a la taulas
+    loadData(); //Llegir dades de JSON, i afegir-les a la taulas
   }
   private void setCellTable(){
     columnHealthCard.setCellValueFactory(new PropertyValueFactory<>("healthCard"));
@@ -177,28 +146,10 @@ public class MainController implements Initializable {
     columnDateBirth.setCellValueFactory(new PropertyValueFactory<>("dateBirth"));
     columnDateVisit.setCellValueFactory(new PropertyValueFactory<>("dateTimeVisit"));
   }
-  private void loadDataFromJSON(){
+  private void loadData(){
     data.clear();
-    String path = "./data/visits.json";
-    InputStream is = null;
-    try {
-      is = new FileInputStream(path);
-    } catch (FileNotFoundException e) {
-      System.out.println("File not found");
-      e.printStackTrace();
-    }
-
-    JSONTokener tokener = new JSONTokener(is);
-    JSONObject object = new JSONObject(tokener);
-    JSONArray visits = object.getJSONArray("visits");
-
-    for (int i = 0; i < visits.length(); i++) {
-      JSONObject jsonObject = visits.getJSONObject(i);
-      data.add(new Visit(jsonObject.getString("health_card"), jsonObject.getString("name"),
-          jsonObject.getString("first_surname"), jsonObject.getString("second_surname"), jsonObject.getString("gender"),
-          LocalDateTime.parse(jsonObject.getString("date_birth"), DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")),
-          LocalDateTime.parse(jsonObject.getString("date_time_visit"), DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"))));
-    }
+    visit = new Visit();
+    data = visit.loadDataFromJSON(data);
     tableVisits.setItems(data);
   }
 }
