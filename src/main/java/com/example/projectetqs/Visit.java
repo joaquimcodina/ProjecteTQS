@@ -41,8 +41,11 @@ public class Visit {
     return gender;
   }
 
-  public LocalDateTime getDateVisit() {
+  public LocalDateTime getDateTimeVisit() {
     return dateTimeVisit;
   }
 
+  public LocalDateTime getDateBirth() {
+    return dateBirth;
+  }
 }

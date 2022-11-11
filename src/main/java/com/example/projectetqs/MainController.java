@@ -1,12 +1,17 @@
 package com.example.projectetqs;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import java.io.*;
 import java.net.URL;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ResourceBundle;
+
+import javafx.scene.control.cell.PropertyValueFactory;
 import org.json.*;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -31,6 +36,24 @@ public class MainController implements Initializable {
   private RadioButton maleButton;
   @FXML
   private RadioButton femaleButton;
+  @FXML
+  public TableView<Visit> tableVisits;
+  @FXML
+  public TableColumn<?, ?> columnHealthCard;
+  @FXML
+  public TableColumn<?, ?> columnName;
+  @FXML
+  public TableColumn<?, ?> columnFirstSurname;
+  @FXML
+  public TableColumn<?, ?> columnSecondSurname;
+  @FXML
+  public TableColumn<?, ?> columnGender;
+  @FXML
+  public TableColumn<?, ?> columnDateBirth;
+  @FXML
+  public TableColumn<?, ?> columnDateVisit;
+
+  private ObservableList<Visit> data;
 
   public void valueFactorySpinner(){
     hours.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(0, 23, 0));
@@ -56,7 +79,8 @@ public class MainController implements Initializable {
     String gender="";
     if(maleButton.isSelected())
       gender = maleButton.getText();
-    if(femaleButton.isSelected())
+
+    else
       gender = femaleButton.getText();
     return gender;
   }
@@ -102,9 +126,6 @@ public class MainController implements Initializable {
           JSONTokener tokener = new JSONTokener(is);
           obj = new JSONObject(tokener);
           jsonArray = obj.getJSONArray("visits");
-          for(int i=0 ; i<jsonArray.length() ; i++){
-            System.out.println(jsonArray.get(i));
-          }
         }
       }
       FileWriter fileVisits = new FileWriter(file, false);
@@ -114,7 +135,7 @@ public class MainController implements Initializable {
       obj.put("first_surname", getFirstSurname());
       obj.put("second_surname", getSecondSurname());
       obj.put("gender", getGender());
-      obj.put("date_birth", dateBirthFormatter);
+      obj.put("date_birth", dateBirthFormatter+" 00:00");
       obj.put("date_time_visit", dateTime);
       jsonArray.put(obj);
       obj = new JSONObject();
@@ -136,9 +157,48 @@ public class MainController implements Initializable {
     textDateVisit.getEditor().clear();
     maleButton.setSelected(false);
     femaleButton.setSelected(false);
+    valueFactorySpinner();
+    setCellTable();
+    loadDataFromJSON(); //actualitzar la llista de visites
   }
   @Override
   public void initialize(URL arg0, ResourceBundle arg1){
     valueFactorySpinner();
+    data = FXCollections.observableArrayList();
+    setCellTable();
+    loadDataFromJSON(); //llegir dades de JSON, i afegir-les a la taulas
+  }
+  private void setCellTable(){
+    columnHealthCard.setCellValueFactory(new PropertyValueFactory<>("healthCard"));
+    columnName.setCellValueFactory(new PropertyValueFactory<>("name"));
+    columnFirstSurname.setCellValueFactory(new PropertyValueFactory<>("firstSurname"));
+    columnSecondSurname.setCellValueFactory(new PropertyValueFactory<>("secondSurname"));
+    columnGender.setCellValueFactory(new PropertyValueFactory<>("gender"));
+    columnDateBirth.setCellValueFactory(new PropertyValueFactory<>("dateBirth"));
+    columnDateVisit.setCellValueFactory(new PropertyValueFactory<>("dateTimeVisit"));
+  }
+  private void loadDataFromJSON(){
+    data.clear();
+    String path = "./data/visits.json";
+    InputStream is = null;
+    try {
+      is = new FileInputStream(path);
+    } catch (FileNotFoundException e) {
+      System.out.println("File not found");
+      e.printStackTrace();
+    }
+
+    JSONTokener tokener = new JSONTokener(is);
+    JSONObject object = new JSONObject(tokener);
+    JSONArray visits = object.getJSONArray("visits");
+
+    for (int i = 0; i < visits.length(); i++) {
+      JSONObject jsonObject = visits.getJSONObject(i);
+      data.add(new Visit(jsonObject.getString("health_card"), jsonObject.getString("name"),
+          jsonObject.getString("first_surname"), jsonObject.getString("second_surname"), jsonObject.getString("gender"),
+          LocalDateTime.parse(jsonObject.getString("date_birth"), DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")),
+          LocalDateTime.parse(jsonObject.getString("date_time_visit"), DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"))));
+    }
+    tableVisits.setItems(data);
   }
 }

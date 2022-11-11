@@ -1,7 +1,7 @@
 {
   "visits" : [ {
     "health_card" : "fdtgert345",
-    "date_birth" : "2022-11-18",
+    "date_birth" : "2022-11-18 00:00",
     "gender" : "male",
     "second_surname" : "sdfsdfsd",
     "date_time_visit" : "2022-11-30 00:00",
@@ -9,11 +9,35 @@
     "first_surname" : "dfsdfs"
   }, {
     "health_card" : "gdgdfg34234234",
-    "date_birth" : "2022-11-17",
+    "date_birth" : "2022-11-17 00:00",
     "gender" : "male",
     "second_surname" : "sdasd",
     "date_time_visit" : "2022-11-25 00:00",
     "name" : "fs",
     "first_surname" : "sdfsdf"
+  }, {
+    "health_card" : "wierhwi93",
+    "date_birth" : "2022-11-24 00:00",
+    "gender" : "male",
+    "second_surname" : "espin",
+    "date_time_visit" : "2022-11-08 00:00",
+    "name" : "joaquim",
+    "first_surname" : "codina"
+  }, {
+    "health_card" : "whuwhueq",
+    "date_birth" : "2002-11-05 00:00",
+    "gender" : "male",
+    "second_surname" : "garcia",
+    "date_time_visit" : "2022-11-29 13:51",
+    "name" : "bernat",
+    "first_surname" : "garcia"
+  }, {
+    "health_card" : "sfdsf",
+    "date_birth" : "2022-11-24 00:00",
+    "gender" : "male",
+    "second_surname" : "dasdas",
+    "date_time_visit" : "2022-11-07 10:10",
+    "name" : "34dsd",
+    "first_surname" : "asdasdqw"
   } ]
 }

@@ -4,55 +4,66 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="368.0" prefWidth="585.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.projectetqs.MainController">
+<AnchorPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="369.0" prefWidth="1157.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.projectetqs.MainController">
    <children>
-      <Label layoutX="116.0" layoutY="32.0" text="Health Card">
+      <Label layoutX="19.0" layoutY="32.0" text="Health Card">
          <font>
             <Font name="System Bold" size="13.0" />
          </font></Label>
-      <Label layoutX="160.0" layoutY="76.0" text="Name">
+      <Label layoutX="19.0" layoutY="76.0" text="Name">
          <font>
             <Font name="System Bold" size="13.0" />
          </font></Label>
-      <Label layoutX="102.0" layoutY="118.0" text="First Surname">
+      <Label layoutX="19.0" layoutY="118.0" text="First Surname">
          <font>
             <Font name="System Bold" size="13.0" />
          </font></Label>
-      <Label layoutX="82.0" layoutY="151.0" prefHeight="24.0" prefWidth="127.0" text="Second Surname">
+      <Label layoutX="19.0" layoutY="151.0" prefHeight="24.0" prefWidth="127.0" text="Second Surname">
          <font>
             <Font name="System Bold" size="13.0" />
          </font></Label>
-      <Label layoutX="115.0" layoutY="224.0" text="Date of Birth">
+      <Label layoutX="19.0" layoutY="224.0" prefHeight="16.0" prefWidth="104.0" text="Date of Birth">
          <font>
             <Font name="System Bold" size="13.0" />
          </font></Label>
-      <Label layoutX="82.0" layoutY="268.0" text="DateTime of Visit">
+      <Label layoutX="19.0" layoutY="268.0" text="DateTime of Visit">
          <font>
             <Font name="System Bold" size="13.0" />
          </font></Label>
-      <Label layoutX="133.0" layoutY="192.0" text="Gender">
+      <Label layoutX="19.0" layoutY="192.0" text="Gender">
          <font>
             <Font name="System Bold" size="13.0" />
          </font></Label>
-      <Label layoutX="468.0" layoutY="268.0" text=":">
+      <Label layoutX="417.0" layoutY="268.0" text=":">
          <font>
             <Font name="System Bold" size="13.0" />
          </font>
       </Label>
-      <TextField fx:id="textHealthCard" layoutX="210.0" layoutY="28.0" />
-      <TextField fx:id="textName" layoutX="210.0" layoutY="72.0" />
-      <TextField fx:id="textFirstSurname" layoutX="210.0" layoutY="114.0" />
-      <TextField fx:id="textSecondSurname" layoutX="209.0" layoutY="151.0" />
-      <Spinner fx:id="hours" layoutX="392.0" layoutY="264.0" prefHeight="24.0" prefWidth="69.0" />
-      <Spinner fx:id="minutes" layoutX="480.0" layoutY="264.0" prefHeight="24.0" prefWidth="69.0" />
-      <RadioButton fx:id="femaleButton" layoutX="287.0" layoutY="191.0" mnemonicParsing="false" text="female">
+      <TextField fx:id="textHealthCard" layoutX="158.0" layoutY="28.0" />
+      <TextField fx:id="textName" layoutX="158.0" layoutY="72.0" />
+      <TextField fx:id="textFirstSurname" layoutX="158.0" layoutY="114.0" />
+      <TextField fx:id="textSecondSurname" layoutX="158.0" layoutY="151.0" />
+      <Spinner fx:id="hours" layoutX="341.0" layoutY="264.0" prefHeight="24.0" prefWidth="69.0" />
+      <Spinner fx:id="minutes" layoutX="430.0" layoutY="264.0" prefHeight="24.0" prefWidth="69.0" />
+      <RadioButton fx:id="femaleButton" layoutX="225.0" layoutY="191.0" mnemonicParsing="false" text="female">
          <toggleGroup>
             <ToggleGroup fx:id="gender" />
          </toggleGroup>
       </RadioButton>
-      <RadioButton fx:id="maleButton" layoutX="215.0" layoutY="191.0" mnemonicParsing="false" selected="true" text="male" toggleGroup="$gender" />
-      <DatePicker fx:id="textDateVisit" editable="false" layoutX="215.0" layoutY="264.0" prefHeight="24.0" prefWidth="171.0" />
-      <DatePicker fx:id="textDateBirth" editable="false" layoutX="215.0" layoutY="220.0" prefHeight="24.0" prefWidth="171.0" />
-      <Button fx:id="sendButton" layoutX="211.0" layoutY="310.0" mnemonicParsing="false" onAction="#addVisit" text="Send Visit" />
+      <RadioButton fx:id="maleButton" layoutX="158.0" layoutY="191.0" mnemonicParsing="false" selected="true" text="male" toggleGroup="$gender" />
+      <DatePicker fx:id="textDateVisit" editable="false" layoutX="158.0" layoutY="264.0" prefHeight="24.0" prefWidth="171.0" />
+      <DatePicker fx:id="textDateBirth" editable="false" layoutX="158.0" layoutY="220.0" prefHeight="24.0" prefWidth="171.0" />
+      <Button fx:id="sendButton" layoutX="167.0" layoutY="310.0" mnemonicParsing="false" onAction="#addVisit" text="Send Visit" />
+      <TableView fx:id="tableVisits" editable="true" layoutX="509.0" layoutY="-1.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="369.0" prefWidth="647.0">
+        <columns>
+          <TableColumn fx:id="columnHealthCard" prefWidth="104.0" text="Health Card" />
+          <TableColumn fx:id="columnName" prefWidth="75.0" text="Name" />
+            <TableColumn fx:id="columnFirstSurname" prefWidth="99.0" text="F. Surname" />
+            <TableColumn fx:id="columnSecondSurname" prefWidth="95.0" text="S. Surname" />
+            <TableColumn fx:id="columnGender" minWidth="0.0" prefWidth="75.0" text="Gender" />
+            <TableColumn fx:id="columnDateBirth" prefWidth="103.0" text="Date Birth" />
+            <TableColumn fx:id="columnDateVisit" prefWidth="95.0" text="Date Visit" />
+        </columns>
+      </TableView>
    </children>
 </AnchorPane>
