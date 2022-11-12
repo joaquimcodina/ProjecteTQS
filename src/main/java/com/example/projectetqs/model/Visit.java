@@ -17,7 +17,15 @@ public class Visit {
   private LocalDateTime dateBirth;
   private LocalDateTime dateTimeVisit;
 
-  public Visit() {}
+  public Visit() {
+    this.healthCard = "";
+    this.name = "";
+    this.firstSurname = "";
+    this.secondSurname = "";
+    this.gender = "";
+    this.dateBirth = null;
+    this.dateTimeVisit = null;
+  }
 
   public Visit(String healthCard, String name, String firstSurname, String secondSurname,
                String gender, LocalDateTime dateBirth, LocalDateTime dateTimeVisit) {
