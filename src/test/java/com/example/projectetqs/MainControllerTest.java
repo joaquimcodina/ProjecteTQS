@@ -42,7 +42,6 @@ class MainControllerTest {
   @Test
   void validationHealthCard() {
     assertTrue(mainController1.validationHealthCard());
-
   }
 
   @Test
@@ -52,7 +51,11 @@ class MainControllerTest {
 
   @Test
   void validateSurname() {
-    assertTrue(mainController2.validateSurname());
+    assertTrue(mainController1.validateSurname());
+  }
 
+  @Test
+  void validateDatesBirthVisit() {
+    assertTrue(mainController1.validateDatesBirthVisit());
   }
 }
