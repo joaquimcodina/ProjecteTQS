@@ -101,7 +101,7 @@ public class MainController implements Initializable {
 
   @FXML
   public void addVisit() {
-    if (validationHealthCard() && validateSurname()){
+    if (validationHealthCard() && validateSurname() && validateName()){
       String dateTime=(getDateVisit()+" "+getHour()+":"+getMinutes()).formatted(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
       if((getHour()>=0 && getHour()<=9) && (getMinutes()>=0 && getMinutes()<=9))
         dateTime = (getDateVisit()+" "+"0"+getHour()+":"+"0"+getMinutes()).formatted(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
@@ -195,6 +195,31 @@ public class MainController implements Initializable {
         AlertDialog.display("Error HeartCard", "El prefix HealthCard es diferent a les 2 lletres de cada cognom");
         return false;
       }
+    }
+
+    return true;
+  }
+
+  public boolean validateName() {
+
+    if(getName().equals("")){
+      AlertDialog.display("Error Name", "Name is required");
+      return false;
+    }
+
+    if(!(getName().length() >= 2 && getName().length() <= 44)){
+      AlertDialog.display("Error Name", "Name ha de tenir mínim 2 caràcters i màxim 44 caràcters");
+      return false;
+    }
+
+    if(!(String.valueOf(getName().charAt(0)).toUpperCase().equals(String.valueOf(getName().charAt(0))))){
+      AlertDialog.display("Error Name", "La primera lletra del First Surname ha de ser en majúscula");
+      return false;
+    }
+
+    if(!getName().matches("[a-zA-Z]+")){
+      AlertDialog.display("Error Name", "Name ha de ser alfabètic");
+      return false;
     }
 
     return true;
