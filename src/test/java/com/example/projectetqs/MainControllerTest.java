@@ -200,6 +200,12 @@ class MainControllerTest {
 
   @Test
   void getHour() {
+    //LocalDateTime hour = mainController.getHour();
+    DateTimeFormatter format = DateTimeFormatter.ofPattern("HH");
+    String dateTimeVisit = visit1.getDateVisit().format(format);
+    
+    //Comprovar que el camp no estigui buit
+    assertNotNull(dateHour);
   }
 
   @Test
