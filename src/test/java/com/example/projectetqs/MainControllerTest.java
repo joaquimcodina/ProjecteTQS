@@ -46,6 +46,11 @@ class MainControllerTest {
   }
 
   @Test
+  void validateName() {
+    assertTrue(mainController1.validateName());
+  }
+
+  @Test
   void validateSurname() {
     assertTrue(mainController2.validateSurname());
 
