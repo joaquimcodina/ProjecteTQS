@@ -101,7 +101,9 @@ public class MainController implements Initializable {
 
   @FXML
   public void addVisit() {
-    if (validationHealthCard() && validateSurname() && validateName()){
+    System.out.println(getDateBirth());
+    System.out.println(getDateVisit());
+    if (validationHealthCard() && validateName() && validateSurname() && validateDatesBirthVisit()){
       String dateTime=(getDateVisit()+" "+getHour()+":"+getMinutes()).formatted(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
       if((getHour()>=0 && getHour()<=9) && (getMinutes()>=0 && getMinutes()<=9))
         dateTime = (getDateVisit()+" "+"0"+getHour()+":"+"0"+getMinutes()).formatted(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
@@ -124,7 +126,9 @@ public class MainController implements Initializable {
       maleButton.isSelected();
       femaleButton.isSelected();
       textDateBirth.getEditor().clear();
+      textDateBirth.setValue(null);
       textDateVisit.getEditor().clear();
+      textDateVisit.setValue(null);
       valueFactorySpinner();
       setCellTable();
       loadData(); //Llegir dades de JSON, i afegir-les a la taulas
@@ -213,7 +217,7 @@ public class MainController implements Initializable {
     }
 
     if(!(String.valueOf(getName().charAt(0)).toUpperCase().equals(String.valueOf(getName().charAt(0))))){
-      AlertDialog.display("Error Name", "La primera lletra del First Surname ha de ser en majúscula");
+      AlertDialog.display("Error Name", "La primera lletra del Name ha de ser en majúscula");
       return false;
     }
 
@@ -265,6 +269,40 @@ public class MainController implements Initializable {
       AlertDialog.display("Error Second Surname", "El Second Surname ha de ser alfabètic");
       return false;
     }
+    return true;
+  }
+
+  public boolean validateDatesBirthVisit(){
+    if(getDateBirth() == null){
+      AlertDialog.display("Error Date Birth", "Date Birth is require");
+      return false;
+    }
+
+    if(getDateVisit() == null){
+      AlertDialog.display("Error Date Visit", "Date Visit is require");
+      return false;
+    }
+
+    if(getDateBirth().isBefore(LocalDate.now())){
+      AlertDialog.display("Error Date Birth", "Date Birth es DESPRÉS de la Data Actual");
+      return false;
+    }
+
+    if(!getDateVisit().isAfter(LocalDate.now())){
+      AlertDialog.display("Error Date Visit", "Date Visit es ABANS de la Data Actual");
+      return false;
+    }
+
+    if(!getDateBirth().isBefore(getDateVisit())){
+      AlertDialog.display("Error Date Birth", "Date Birth es DESPRÉS de la Data de Visita");
+      return false;
+    }
+
+    if(!getDateVisit().isAfter(getDateBirth())){
+      AlertDialog.display("Error Date Visit", "Date Visit es ABANS de la Data de naixement");
+      return false;
+    }
+
     return true;
   }
 }
