@@ -1,5 +1,6 @@
 package com.example.projectetqs.controller;
 import com.example.projectetqs.AlertDialog;
+import com.example.projectetqs.mockobject.MockVisit;
 import com.example.projectetqs.model.Visit;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -53,6 +54,17 @@ public class MainController implements Initializable {
 
   private ObservableList<Visit> data;
   private Visit visit; //model
+
+  //Copia una referencia a un objecte extern de tipus Visit
+  private MockVisit mockVisit;
+
+  public void setVisit(MockVisit visit){ this.mockVisit = visit; }
+
+  public void changeDateVisit(String healthCard, LocalDate dateVisit){
+    Visit visit = this.mockVisit.loadVisitForHealthCard(healthCard);
+    visit.setDateTimeVisit(dateVisit.atStartOfDay());
+    this.mockVisit.assignSchedule(visit);
+  }
 
   public void valueFactorySpinner(){
     hours.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(0, 23, 0));

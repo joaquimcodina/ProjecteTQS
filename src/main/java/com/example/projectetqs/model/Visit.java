@@ -58,6 +58,7 @@ public class Visit {
     return gender;
   }
 
+  public void setDateTimeVisit(LocalDateTime dateTimeVisit) { this.dateTimeVisit = dateTimeVisit; }
   public LocalDateTime getDateTimeVisit() {
     return dateTimeVisit;
   }
