@@ -56,13 +56,13 @@
       <Button fx:id="sendButton" layoutX="167.0" layoutY="310.0" mnemonicParsing="false" onAction="#addVisit" text="Send Visit" />
       <TableView fx:id="tableVisits" editable="true" layoutX="509.0" layoutY="-1.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="369.0" prefWidth="647.0">
         <columns>
-          <TableColumn fx:id="columnHealthCard" prefWidth="104.0" text="Health Card" />
-          <TableColumn fx:id="columnName" prefWidth="75.0" text="Name" />
-            <TableColumn fx:id="columnFirstSurname" prefWidth="99.0" text="F. Surname" />
-            <TableColumn fx:id="columnSecondSurname" prefWidth="95.0" text="S. Surname" />
-            <TableColumn fx:id="columnGender" minWidth="0.0" prefWidth="75.0" text="Gender" />
-            <TableColumn fx:id="columnDateBirth" prefWidth="103.0" text="Date Birth" />
-            <TableColumn fx:id="columnDateVisit" prefWidth="95.0" text="Date Visit" />
+          <TableColumn fx:id="columnHealthCard" maxWidth="175.0" minWidth="110.0" prefWidth="110.0" text="Health Card" />
+          <TableColumn fx:id="columnName" maxWidth="250.0" minWidth="110.0" prefWidth="110.0" text="Name" />
+            <TableColumn fx:id="columnFirstSurname" maxWidth="250.0" minWidth="110.0" prefWidth="110.0" text="F. Surname" />
+            <TableColumn fx:id="columnSecondSurname" maxWidth="250.0" minWidth="110.0" prefWidth="110.0" text="S. Surname" />
+            <TableColumn fx:id="columnGender" maxWidth="75.0" minWidth="75.0" prefWidth="75.0" text="Gender" />
+            <TableColumn fx:id="columnDateBirth" maxWidth="135.0" minWidth="135.0" prefWidth="135.0" text="Date Birth" />
+            <TableColumn fx:id="columnDateVisit" maxWidth="135.0" minWidth="135.0" prefWidth="135.0" text="Date Visit" />
         </columns>
       </TableView>
    </children>

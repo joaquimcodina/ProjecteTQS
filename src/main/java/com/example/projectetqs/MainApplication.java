@@ -11,6 +11,7 @@ public class MainApplication extends Application {
     FXMLLoader fxmlLoader = new FXMLLoader(MainApplication.class.getResource("main-view.fxml"));
     Scene scene = new Scene(fxmlLoader.load(), 1157, 369);
     stage.setTitle("Llista d'Espera Consulta");
+    stage.setResizable(false);
     stage.setScene(scene);
     stage.show();
   }
