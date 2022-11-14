@@ -70,6 +70,11 @@ public class MainController implements Initializable {
     hours.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(0, 23, 0));
     minutes.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(0, 59, 0));
   }
+
+  public void setTextHealthCard(TextField textHealthCard) {
+    this.textHealthCard = textHealthCard;
+  }
+
   public String getHealthCard(){
     return textHealthCard.getText();
   }
@@ -113,9 +118,10 @@ public class MainController implements Initializable {
 
   @FXML
   public void addVisit() {
-    System.out.println(getDateBirth());
-    System.out.println(getDateVisit());
-    if (validationHealthCard() && validateName() && validateSurname() && validateDatesBirthVisit()){
+    if (validationHealthCard(getHealthCard(), getFirstSurname(), getSecondSurname()) &&
+        validateName(getName()) && validateSurname(getFirstSurname(), getSecondSurname()) &&
+        validateDatesBirthVisit(getDateBirth(), getDateVisit())){
+
       String dateTime=(getDateVisit()+" "+getHour()+":"+getMinutes()).formatted(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
       if((getHour()>=0 && getHour()<=9) && (getMinutes()>=0 && getMinutes()<=9))
         dateTime = (getDateVisit()+" "+"0"+getHour()+":"+"0"+getMinutes()).formatted(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
@@ -169,38 +175,38 @@ public class MainController implements Initializable {
     tableVisits.setItems(data);
   }
 
-  public boolean validationHealthCard() {
-    if(getHealthCard().equals("")){
+  public boolean validationHealthCard(String healthCard, String firstSurname, String secondSurname) {
+    if(healthCard.equals("")){
       AlertDialog.display("Error HeartCard", "HeartCard is required");
       return false;
     }
 
-    if(getHealthCard().length() != 18){
+    if(healthCard.length() != 18){
       AlertDialog.display("Error HeartCard", "HearthCard ha de tenir exactament 18 caràcters (comptant lletres, numeros i espais) \n" +
           "o ha de complir el format XXYY 1 234567 89 0");
       return false;
     }
 
-    if(!getHealthCard().matches("^\\s*[\\da-zA-Z][\\da-zA-Z\\s]*$")){
+    if(!healthCard.matches("^\\s*[\\da-zA-Z][\\da-zA-Z\\s]*$")){
       AlertDialog.display("Error HeartCard", "HeartCard ha de ser alfanumeric");
       return false;
     }
 
-    if(!getHealthCard().matches("\\w{4} \\d{1} \\d{6} \\d{2} \\d{1}")){
+    if(!healthCard.matches("\\w{4} \\d{1} \\d{6} \\d{2} \\d{1}")){
       AlertDialog.display("Error HeartCard", "HearthCard ha de complir el format XXYY 1 234567 89 0.\n" +
           "XX (les dues primeres lletres del primer cognom) i YY (les dues primeres lletres del segon cognom)");
       return false;
     }
 
-    String prefixHealthCard = (getHealthCard().charAt(0))+""+(getHealthCard().charAt(1))+""+(getHealthCard().charAt(2))+""+(getHealthCard().charAt(3));
+    String prefixHealthCard = (healthCard.charAt(0))+""+(healthCard.charAt(1))+""+(healthCard.charAt(2))+""+(healthCard.charAt(3));
     if(!prefixHealthCard.equals(prefixHealthCard.toUpperCase())){
       AlertDialog.display("Error HeartCard", "El prefix ha de ser en majuscules");
       return false;
     }
 
     //validar cognoms (comprovar que no siguin nulls)
-    if(validateSurname()){
-      String prefixSurname = (getFirstSurname().charAt(0))+""+(getFirstSurname().charAt(1))+""+(getSecondSurname().charAt(0))+""+(getSecondSurname().charAt(1));
+    if(validateSurname(firstSurname, secondSurname)){
+      String prefixSurname = (firstSurname.charAt(0))+""+(firstSurname.charAt(1))+""+(secondSurname.charAt(0))+""+(secondSurname.charAt(1));
 
       if(!prefixHealthCard.equals(prefixHealthCard.toUpperCase())){
         AlertDialog.display("Error HeartCard", "El prefix HealthCard ha de ser en majuscules");
@@ -216,24 +222,24 @@ public class MainController implements Initializable {
     return true;
   }
 
-  public boolean validateName() {
+  public boolean validateName(String name) {
 
-    if(getName().equals("")){
+    if(name.equals("")){
       AlertDialog.display("Error Name", "Name is required");
       return false;
     }
 
-    if(!(getName().length() >= 2 && getName().length() <= 44)){
+    if(!(name.length() >= 2 && name.length() <= 44)){
       AlertDialog.display("Error Name", "Name ha de tenir mínim 2 caràcters i màxim 44 caràcters");
       return false;
     }
 
-    if(!(String.valueOf(getName().charAt(0)).toUpperCase().equals(String.valueOf(getName().charAt(0))))){
+    if(!(String.valueOf(name.charAt(0)).toUpperCase().equals(String.valueOf(name.charAt(0))))){
       AlertDialog.display("Error Name", "La primera lletra del Name ha de ser en majúscula");
       return false;
     }
 
-    if(!getName().matches("[a-zA-Z]+")){
+    if(!name.matches("[a-zA-Z]+")){
       AlertDialog.display("Error Name", "Name ha de ser alfabètic");
       return false;
     }
@@ -241,76 +247,76 @@ public class MainController implements Initializable {
     return true;
   }
 
-  public boolean validateSurname() {
-    if(getFirstSurname().equals("")){
+  public boolean validateSurname(String firstSurname, String secondSurname) {
+    if(firstSurname.equals("")){
       AlertDialog.display("Error First Surname", "First Surnames is required");
       return false;
     }
 
-    if(getSecondSurname().equals("")){
+    if(secondSurname.equals("")){
       AlertDialog.display("Error Second Surname", "Second Surnames is required");
       return false;
     }
 
-    if(!(getFirstSurname().length() >= 3 && getFirstSurname().length() <= 23)){
+    if(!(firstSurname.length() >= 3 && firstSurname.length() <= 23)){
       AlertDialog.display("Error Firt Surname", "First Surname ha de tenir mínim 3 caràcters i màxim 23 caràcters");
       return false;
     }
 
-    if(!(getSecondSurname().length() >= 3 && getSecondSurname().length() <= 23)){
+    if(!(secondSurname.length() >= 3 && secondSurname.length() <= 23)){
       AlertDialog.display("Error Second Surname", "Second Surname ha de tenir mínim 3 caràcters i màxim 23 caràcters");
       return false;
     }
 
-    if(!(String.valueOf(getFirstSurname().charAt(0)).toUpperCase().equals(String.valueOf(getFirstSurname().charAt(0))))){
+    if(!(String.valueOf(firstSurname.charAt(0)).toUpperCase().equals(String.valueOf(firstSurname.charAt(0))))){
       AlertDialog.display("Error First Surname", "La primera lletra del First Surname ha de ser en majúscula");
       return false;
     }
 
-    if(!(String.valueOf(getSecondSurname().charAt(0)).toUpperCase().equals(String.valueOf(getSecondSurname().charAt(0))))){
+    if(!(String.valueOf(secondSurname.charAt(0)).toUpperCase().equals(String.valueOf(secondSurname.charAt(0))))){
       AlertDialog.display("Error Second Surname", "La primera lletra del Second Surname ha de ser en majúscula");
       return false;
     }
 
-    if(!getFirstSurname().matches("[a-zA-Z]+")){
-      AlertDialog.display("Error First Surname", "El Firt Surname ha de ser alfabètic");
+    if(!firstSurname.matches("[a-zA-Z]+")){
+      AlertDialog.display("Error First Surname", "El First Surname ha de ser alfabètic");
       return false;
     }
 
-    if(!getSecondSurname().matches("[a-zA-Z]+")){
+    if(!secondSurname.matches("[a-zA-Z]+")){
       AlertDialog.display("Error Second Surname", "El Second Surname ha de ser alfabètic");
       return false;
     }
     return true;
   }
 
-  public boolean validateDatesBirthVisit(){
-    if(getDateBirth() == null){
+  public boolean validateDatesBirthVisit(LocalDate dateBirth, LocalDate dateVisit){
+    if(dateBirth == null){
       AlertDialog.display("Error Date Birth", "Date Birth is require");
       return false;
     }
 
-    if(getDateVisit() == null){
+    if(dateVisit == null){
       AlertDialog.display("Error Date Visit", "Date Visit is require");
       return false;
     }
 
-    if(getDateBirth().isBefore(LocalDate.now())){
+    if(!dateBirth.isBefore(LocalDate.now())){
       AlertDialog.display("Error Date Birth", "Date Birth es DESPRÉS de la Data Actual");
       return false;
     }
 
-    if(!getDateVisit().isAfter(LocalDate.now())){
+    if(!dateVisit.isAfter(LocalDate.now())){
       AlertDialog.display("Error Date Visit", "Date Visit es ABANS de la Data Actual");
       return false;
     }
 
-    if(!getDateBirth().isBefore(getDateVisit())){
+    if(!dateBirth.isBefore(dateVisit)){
       AlertDialog.display("Error Date Birth", "Date Birth es DESPRÉS de la Data de Visita");
       return false;
     }
 
-    if(!getDateVisit().isAfter(getDateBirth())){
+    if(!dateVisit.isAfter(dateBirth)){
       AlertDialog.display("Error Date Visit", "Date Visit es ABANS de la Data de naixement");
       return false;
     }
