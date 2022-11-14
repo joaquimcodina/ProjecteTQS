@@ -1,5 +1,4 @@
-package com.example.projectetqs;
-import com.example.projectetqs.controller.MainController;
+package com.example.projectetqs.controller;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import java.time.LocalDate;

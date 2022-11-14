@@ -71,10 +71,6 @@ public class MainController implements Initializable {
     minutes.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(0, 59, 0));
   }
 
-  public void setTextHealthCard(TextField textHealthCard) {
-    this.textHealthCard = textHealthCard;
-  }
-
   public String getHealthCard(){
     return textHealthCard.getText();
   }
