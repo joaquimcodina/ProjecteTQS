@@ -32,6 +32,10 @@ class MainControllerTest {
     assertTrue(mainController.validateName("Joaquim"));
     assertTrue(mainController.validateName("Bernat"));
     assertTrue(mainController.validateName("Carles"));
+    
+    assertFalse(mainController.validateName("A"));  //menys de 2 caracters
+    assertFalse(mainController.validateName("Aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"));    //mes de 44 caracters
+    assertTrue(mainController.validateName("Victor"));   //entre 2 i 44 caracters
   }
 
   @Test
@@ -39,6 +43,10 @@ class MainControllerTest {
     assertTrue(mainController.validateSurname("Codina", "Espin"));
     assertTrue(mainController.validateSurname("Garcia", "Marquez"));
     assertTrue(mainController.validateSurname("Lopez", "Martinez"));
+    
+    assertFalse(mainController.validateSurname("Al"));  //menys de 3 caracters
+    assertFalse(mainController.validateSurname("Alaaaaaaaaaaaaaaaaaaaaaaa"));    //mes de 23 caracters
+    assertTrue(mainController.validateSurname("Garcia"));   //entre 3 i 23 caracters
   }
 
   @Test
