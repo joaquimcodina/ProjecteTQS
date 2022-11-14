@@ -20,6 +20,11 @@ class MainControllerTest {
     assertTrue(mainController.validationHealthCard("COES 1 234567 89 0", "Codina", "Espin"));
     assertTrue(mainController.validationHealthCard("GAMA 2 222222 22 2", "Garcia", "Marquez"));
     assertTrue(mainController.validationHealthCard("LOMA 1 234567 89 0", "Lopez", "Martinez"));
+    
+    assertFalse(mainController.validationHealthCard("LOMA 1 234567 89 0", "Lopez", ""));
+    assertFalse(mainController.validationHealthCard("", "Lopez", "Martinez"));
+    assertFalse(mainController.validationHealthCard("LOMA 1 234567 89 0", "", "Martinez"));
+    assertFalse(mainController.validationHealthCard("", "", ""));
   }
 
   @Test
