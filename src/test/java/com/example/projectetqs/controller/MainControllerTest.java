@@ -21,6 +21,7 @@ class MainControllerTest {
     assertTrue(mainController.validationHealthCard("GAMA 2 222222 22 2", "Garcia", "Marquez"));
     assertTrue(mainController.validationHealthCard("LOMA 1 234567 89 0", "Lopez", "Martinez"));
     
+    //PAIRWISE TESTING
     assertFalse(mainController.validationHealthCard("LOMA 1 234567 89 0", "Lopez", ""));
     assertFalse(mainController.validationHealthCard("", "Lopez", "Martinez"));
     assertFalse(mainController.validationHealthCard("LOMA 1 234567 89 0", "", "Martinez"));
