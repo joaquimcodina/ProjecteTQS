@@ -233,9 +233,6 @@ class VisitTest {
     //Comprovar que la data de naixement sigui ABANS O IGUAL a la data de visita
     //(Pot ser un nado que tingui visita el mateix dia del seu naixement)
     assertTrue(dateBirth.isBefore(dateTimeVisit) || dateBirth.isEqual(dateTimeVisit));
-
-    //deshabilitar dies a partir de la data actual (es a dir, no hi pot haver una data de naixement 11-11-2022, estant
-    //en la data actual 9-11-2022)
   }
 
   @Test
@@ -276,9 +273,6 @@ class VisitTest {
     assertTrue(dateTimeVisit.isAfter(dateBirth) || dateTimeVisit.isEqual(dateBirth));
     assertTrue(dateTimeVisit.isAfter(LocalDateTime.now()) || dateTimeVisit.isEqual(LocalDateTime.now()));
 
-    //deshabilitar dies fins la data actual (es a dir, no hi pot haver una data de visita 2-11-2022, estant
-    //en la data actual 9-11-2022)
-
     //Particio d'equivalencia INVALIDA: Abans de la data actual fins la data actual (ex. som a 6-11-2022, i li programem una visita pel 3-10-2021 o 5-11-2022)
     //Particio d'equivalencia VALIDA: Des de la data actual fins a un màxim de 1 any d'espera (ex. som a 6-11-2022, i li progarem una visita pel 15-11-2022 o 6-11-2023. Pot coincidir que el pacient hagi nascut en la data actual.)
     //Partició d'equivalencia INVALIDA: Més de 1 ANY D'espera fins a 2099 (ex. programar una visita pel 2040 i neix en 1975)
@@ -288,35 +282,6 @@ class VisitTest {
     //              (7-11-2022)
     //              (5-11-2023)
     //              (7-11-2023)
-
-    /*assertTrue(healthCard, "Valor limit valid");
-    assertTrue(any2021 < anyFrontera2, "Valor limit valid");
-    assertFalse(any1979 > anyFrontera1, "Valor limit NO valid");
-    assertFalse(any2023 < anyFrontera2, "Valor limit NO valid");
-
-    //Particio equivalent: 1999, 2010, 2011
-    assertTrue(any1999 >= anyFrontera1 && any1999 <= anyFrontera2, "Partició equivalent valid");
-    assertTrue(any2010 >= anyFrontera1 && any2010 <= anyFrontera2, "Partició equivalent valid");
-    assertTrue(any2011 >= anyFrontera1 && any2011 <= anyFrontera2, "Partició equivalent valid");
-
-    long test1980 = secondsCalculator.anysFins(anyFrontera1);
-    long test2022 = secondsCalculator.anysFins(anyFrontera2);
-    long test1999 = secondsCalculator.anysFins(any1999);
-    long test2010 = secondsCalculator.anysFins(any2010);
-    long test2011 = secondsCalculator.anysFins(any2011);
-
-    //Valors negatius
-    assertTrue(test1980 >= -1);
-    assertTrue(test2022 >= -1);
-    assertTrue(test1999 >= -1);
-    assertTrue(test2010 >= -1);
-    assertTrue(test2011 >= -1);
-
-    assertEquals(test1980, 0); //1980 - 1980 -> 0 anys
-    assertEquals(test2022, 42); //1980 - 2022 -> 42 anys
-    assertEquals(test1999, 19); //1980 - 1999 -> 19 anys
-    assertEquals(test2010, 30); //1980 - 2010 -> 30 anys
-    assertEquals(test2011, 31); //1980 - 2011 -> 31 anys*/
   }
 
   @Test
