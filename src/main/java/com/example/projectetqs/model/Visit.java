@@ -1,4 +1,5 @@
 package com.example.projectetqs.model;
+import com.example.projectetqs.AlertDialog;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import javafx.collections.ObservableList;
 import org.json.JSONArray;
@@ -67,8 +68,8 @@ public class Visit {
     return dateBirth;
   }
 
-  public boolean saveVisitToJSON(String resourceName) throws IOException {
-
+  public boolean saveVisitToJSON(String resourceName, ObservableList<Visit> data) throws IOException {
+    data.clear();
     File file = new File(resourceName);
     JSONArray jsonArray = new JSONArray();
     JSONObject obj = null;
@@ -80,21 +81,31 @@ public class Visit {
         obj = new JSONObject(tokener);
         jsonArray = obj.getJSONArray("visits");
       }
-      FileWriter fileVisits = new FileWriter(file, false);
-      obj = new JSONObject();
-      obj.put("health_card", getHealthCard());
-      obj.put("name", getName());
-      obj.put("first_surname", getFirstSurname());
-      obj.put("second_surname", getSecondSurname());
-      obj.put("gender", getGender());
-      obj.put("date_birth", getDateBirth().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")));
-      obj.put("date_time_visit", getDateTimeVisit().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")));
-      jsonArray.put(obj);
-      obj = new JSONObject();
-      obj.put("visits", jsonArray);
-      fileVisits.write(mapper.writerWithDefaultPrettyPrinter().writeValueAsString(mapper.readTree(obj.toString())));
-      fileVisits.flush();
-      fileVisits.close();
+      ObservableList<Visit> dadesJSON = loadDataFromJSON(resourceName, data);
+      int counter=0;
+      for (Visit visit : dadesJSON) {
+        if (getName().equalsIgnoreCase(visit.name) && getFirstSurname().equalsIgnoreCase(visit.firstSurname) && getSecondSurname().equalsIgnoreCase(visit.secondSurname) &&
+            getHealthCard().equals(visit.healthCard) && getDateTimeVisit().toString().contains(visit.dateTimeVisit.format(DateTimeFormatter.ofPattern("yyyy-MM-dd")))) {
+          counter++;
+        }
+      }
+      if(counter==0){
+        FileWriter fileVisits = new FileWriter(file, false);
+        obj = new JSONObject();
+        obj.put("health_card", getHealthCard());
+        obj.put("name", getName());
+        obj.put("first_surname", getFirstSurname());
+        obj.put("second_surname", getSecondSurname());
+        obj.put("gender", getGender());
+        obj.put("date_birth", getDateBirth().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")));
+        obj.put("date_time_visit", getDateTimeVisit().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")));
+        jsonArray.put(obj);
+        obj = new JSONObject();
+        obj.put("visits", jsonArray);
+        fileVisits.write(mapper.writerWithDefaultPrettyPrinter().writeValueAsString(mapper.readTree(obj.toString())));
+        fileVisits.flush();
+        fileVisits.close();
+      }
     }
     return true;
   }

@@ -15,7 +15,6 @@ class MainApplicationTest {
 
   @Test
   void start() {
-
   }
 
   @Test

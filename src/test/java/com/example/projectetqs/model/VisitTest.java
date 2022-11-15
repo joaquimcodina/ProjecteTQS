@@ -293,8 +293,11 @@ class VisitTest {
 
   @Test
   void saveVisitToJSON() throws IOException {
-    assertTrue(visit1.saveVisitToJSON("data/visits.json"));
-    assertTrue(visit1.saveVisitToJSON("data/visits1.json"));
+    ObservableList<Visit> data = FXCollections.observableArrayList();
+    assertTrue(visit1.saveVisitToJSON("data/visits.json", data));
+    assertTrue(visit2.saveVisitToJSON("data/visits.json", data));
+    assertTrue(visit3.saveVisitToJSON("data/visits.json", data));
+    assertTrue(visit1.saveVisitToJSON("data/visits1.json", data));
   }
 
   @Test

@@ -134,7 +134,7 @@ public class MainController implements Initializable {
       visit = new Visit(getHealthCard(), getName(), getFirstSurname(), getSecondSurname(), getGender(),
           getDateBirth().atStartOfDay(),
           LocalDateTime.parse(dateTime, DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")));
-      visit.saveVisitToJSON("data/visits.json");
+      visit.saveVisitToJSON("data/visits.json", data);
 
       textHealthCard.clear();
       textName.clear();
