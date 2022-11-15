@@ -4,6 +4,7 @@ import javafx.collections.ObservableList;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.Month;
@@ -297,7 +298,7 @@ class VisitTest {
   }
 
   @Test
-  void loadDataFromJSON() {
+  void loadDataFromJSON() throws FileNotFoundException {
     ObservableList<Visit> data = FXCollections.observableArrayList();
     assertNotNull(visit1.loadDataFromJSON("./data/visits.json", data));
     //assertNull(visit1.loadDataFromJSON("./data/visits1.json", data));

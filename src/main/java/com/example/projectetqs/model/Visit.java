@@ -98,14 +98,9 @@ public class Visit {
     }
     return true;
   }
-  public ObservableList<Visit> loadDataFromJSON(String path, ObservableList<Visit> data){
+  public ObservableList<Visit> loadDataFromJSON(String path, ObservableList<Visit> data) throws FileNotFoundException {
     InputStream is = null;
-    try {
-      is = new FileInputStream(path);
-    } catch (FileNotFoundException e) {
-      System.out.println("File not found");
-      e.printStackTrace();
-    }
+    is = new FileInputStream(path);
     JSONTokener tokener = new JSONTokener(is);
     JSONObject object = new JSONObject(tokener);
     JSONArray visits = object.getJSONArray("visits");

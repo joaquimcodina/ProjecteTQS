@@ -2,13 +2,13 @@ package com.example.projectetqs.controller;
 import com.example.projectetqs.AlertDialog;
 import com.example.projectetqs.mockobject.MockVisit;
 import com.example.projectetqs.model.Visit;
-import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDate;
@@ -156,7 +156,11 @@ public class MainController implements Initializable {
     valueFactorySpinner();
     data = FXCollections.observableArrayList();
     setCellTable();
-    loadData(); //Llegir dades de JSON, i afegir-les a la taulas
+    try {
+      loadData(); //Llegir dades de JSON, i afegir-les a la taulas
+    } catch (FileNotFoundException e) {
+      throw new RuntimeException(e);
+    }
   }
   private void setCellTable(){
     columnHealthCard.setCellValueFactory(new PropertyValueFactory<>("healthCard"));
@@ -167,7 +171,7 @@ public class MainController implements Initializable {
     columnDateBirth.setCellValueFactory(new PropertyValueFactory<>("dateBirth"));
     columnDateVisit.setCellValueFactory(new PropertyValueFactory<>("dateTimeVisit"));
   }
-  private void loadData(){
+  private void loadData() throws FileNotFoundException {
     data.clear();
     visit = new Visit();
     data = visit.loadDataFromJSON("./data/visits.json", data);
