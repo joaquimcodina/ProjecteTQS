@@ -1,4 +1,6 @@
 package com.example.projectetqs.model;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -10,12 +12,16 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class VisitTest {
 
+  Visit visitDefault;
   Visit visit1;
   Visit visit2;
   Visit visit3;
 
   @BeforeEach
   protected void setUp(){
+
+    visitDefault = new Visit();
+
     visit1 = new Visit("COES 1 234567 89 0", "Joaquim", "Codina", "Espin", "male",
         LocalDateTime.of(1999, Month.JANUARY, 3, 0, 0, 0),
         LocalDateTime.of(2022, Month.NOVEMBER, 19, 12, 30, 0));
@@ -292,5 +298,8 @@ class VisitTest {
 
   @Test
   void loadDataFromJSON() {
+    ObservableList<Visit> data = FXCollections.observableArrayList();
+    assertNotNull(visit1.loadDataFromJSON("./data/visits.json", data));
+    //assertNull(visit1.loadDataFromJSON("./data/visits1.json", data));
   }
 }

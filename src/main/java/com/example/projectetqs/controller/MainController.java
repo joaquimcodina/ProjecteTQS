@@ -170,7 +170,7 @@ public class MainController implements Initializable {
   private void loadData(){
     data.clear();
     visit = new Visit();
-    data = visit.loadDataFromJSON(data);
+    data = visit.loadDataFromJSON("./data/visits.json", data);
     tableVisits.setItems(data);
   }
 
