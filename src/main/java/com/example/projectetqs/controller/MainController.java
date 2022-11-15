@@ -2,11 +2,14 @@ package com.example.projectetqs.controller;
 import com.example.projectetqs.AlertDialog;
 import com.example.projectetqs.mockobject.MockVisit;
 import com.example.projectetqs.model.Visit;
+import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
+
+import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -113,7 +116,7 @@ public class MainController implements Initializable {
   }
 
   @FXML
-  public void addVisit() {
+  public void addVisit() throws IOException {
     if (validationHealthCard(getHealthCard(), getFirstSurname(), getSecondSurname()) &&
         validateName(getName()) && validateSurname(getFirstSurname(), getSecondSurname()) &&
         validateDatesBirthVisit(getDateBirth(), getDateVisit())){
@@ -131,7 +134,7 @@ public class MainController implements Initializable {
       visit = new Visit(getHealthCard(), getName(), getFirstSurname(), getSecondSurname(), getGender(),
           getDateBirth().atStartOfDay(),
           LocalDateTime.parse(dateTime, DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")));
-      visit.saveVisitToJSON();
+      visit.saveVisitToJSON("data/visits.json");
 
       textHealthCard.clear();
       textName.clear();
@@ -178,8 +181,7 @@ public class MainController implements Initializable {
     }
 
     if(healthCard.length() != 18){
-      AlertDialog.display("Error HeartCard", "HearthCard ha de tenir exactament 18 caràcters (comptant lletres, numeros i espais) \n" +
-          "o ha de complir el format XXYY 1 234567 89 0");
+      AlertDialog.display("Error HeartCard", "HearthCard ha de tenir exactament 18 caràcters (comptant lletres, numeros i espais) \n" + "o ha de complir el format XXYY 1 234567 89 0");
       return false;
     }
 
@@ -189,8 +191,7 @@ public class MainController implements Initializable {
     }
 
     if(!healthCard.matches("\\w{4} \\d{1} \\d{6} \\d{2} \\d{1}")){
-      AlertDialog.display("Error HeartCard", "HearthCard ha de complir el format XXYY 1 234567 89 0.\n" +
-          "XX (les dues primeres lletres del primer cognom) i YY (les dues primeres lletres del segon cognom)");
+      AlertDialog.display("Error HeartCard", "HearthCard ha de complir el format XXYY 1 234567 89 0.\n" +"XX (les dues primeres lletres del primer cognom) i YY (les dues primeres lletres del segon cognom)");
       return false;
     }
 
@@ -239,7 +240,6 @@ public class MainController implements Initializable {
       AlertDialog.display("Error Name", "Name ha de ser alfabètic");
       return false;
     }
-
     return true;
   }
 

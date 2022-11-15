@@ -1,6 +1,8 @@
 package com.example.projectetqs.model;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
+import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.Month;
 
@@ -315,5 +317,15 @@ class VisitTest {
     assertEquals(test1999, 19); //1980 - 1999 -> 19 anys
     assertEquals(test2010, 30); //1980 - 2010 -> 30 anys
     assertEquals(test2011, 31); //1980 - 2011 -> 31 anys*/
+  }
+
+  @Test
+  void saveVisitToJSON() throws IOException {
+    assertTrue(visit1.saveVisitToJSON("data/visits.json"));
+    assertTrue(visit1.saveVisitToJSON("data/visits1.json"));
+  }
+
+  @Test
+  void loadDataFromJSON() {
   }
 }

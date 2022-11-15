@@ -67,20 +67,18 @@ public class Visit {
     return dateBirth;
   }
 
-  public void saveVisitToJSON(){
-    try{
-      String resourceName = "data/visits.json";
-      File file = new File(resourceName);
-      JSONArray jsonArray = new JSONArray();
-      JSONObject obj;
-      ObjectMapper mapper = new ObjectMapper();
-      if(file.exists()){
-        InputStream is = new FileInputStream(file);
-        if(is.available() > 0){
-          JSONTokener tokener = new JSONTokener(is);
-          obj = new JSONObject(tokener);
-          jsonArray = obj.getJSONArray("visits");
-        }
+  public boolean saveVisitToJSON(String resourceName) throws IOException {
+
+    File file = new File(resourceName);
+    JSONArray jsonArray = new JSONArray();
+    JSONObject obj = null;
+    ObjectMapper mapper = new ObjectMapper();
+    if(file.exists()){
+      InputStream is = new FileInputStream(file);
+      if(is.available() > 0){
+        JSONTokener tokener = new JSONTokener(is);
+        obj = new JSONObject(tokener);
+        jsonArray = obj.getJSONArray("visits");
       }
       FileWriter fileVisits = new FileWriter(file, false);
       obj = new JSONObject();
@@ -97,12 +95,9 @@ public class Visit {
       fileVisits.write(mapper.writerWithDefaultPrettyPrinter().writeValueAsString(mapper.readTree(obj.toString())));
       fileVisits.flush();
       fileVisits.close();
-
-    } catch (IOException e){
-      e.printStackTrace();
     }
+    return true;
   }
-
   public ObservableList<Visit> loadDataFromJSON(ObservableList<Visit> data){
     String path = "./data/visits.json";
     InputStream is = null;
