@@ -59,5 +59,8 @@ class MainControllerTest {
 
     assertTrue(mainController.validateDatesBirthVisit(LocalDate.of(1957, Month.OCTOBER, 3),
         LocalDate.of(2022, Month.DECEMBER, 1)));
+    
+    assertFalse(mainController.validateDatesBirthVisit(LocalDate.of((2007, Month.OCTOBER, 3),
+        LocalDate.of(2002, Month.DECEMBER, 1)));
   }
 }
